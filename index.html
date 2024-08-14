@@ -1,0 +1,857 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trends Report</title>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #1c1c1c;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            font-weight: bold;
+            margin: 0;
+            text-transform: uppercase;
+            text-align: center;
+            color: #ff9800;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .countdown {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff9800;
+            background-color: #333;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .content {
+            background-color: #292929;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            overflow-x: auto;
+        }
+
+        .trends-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .trends-table th,
+        .trends-table td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #fff;
+            white-space: nowrap;
+        }
+
+        .trends-table th {
+            background-color: #ff9800;
+            color: #1c1c1c;
+            font-size: 18px;
+        }
+
+        .trends-table tr:nth-child(even) {
+            background-color: #333;
+        }
+
+        .error-message {
+            color: #ff0000;
+            font-weight: bold;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .trends-btn {
+            background-color: #ff9800;
+            color: #1c1c1c;
+            border: none;
+            padding: 15px 30px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .trends-btn:hover {
+            background-color: #f57c00;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Trends</h1>
+            <div class="countdown">Time left for next games: <span id="time-left">0:32</span></div>
+            <div class="button-container">
+                <button class="trends-btn" id="club-trends-btn">91 Club</button>
+                <button class="trends-btn" id="big-daddy-trends-btn">Big Daddy</button>
+                <button class="trends-btn" id="lottery-trends-btn">82 Lottery</button>
+                <button class="trends-btn" id="tiranga-trends-btn">Tiranga Lottery</button>
+                <button class="trends-btn" id="tc-lottery-trends-btn">TC Lottery</button>
+                <button class="trends-btn" id="seven-lottery-trends-btn">7 Lottery</button>
+                <button class="trends-btn" id="big-mumbai-trends-btn">Big Mumbai</button> <!-- Added button for Big Mumbai -->
+            </div>
+        </div>
+        <div class="content">
+                    <table class="trends-table" id="seven-lottery-trends-table"> <!-- Added table for 7 Lottery -->
+                <thead>
+                    <tr>
+                        <th>Period</th>
+                        <th>Number</th>
+                        <th>Big/Small</th>
+                        <th>Colour</th>
+                    </tr>
+                </thead>
+                <tbody><tr><td>20240717010979</td><td>0</td><td>Small</td><td>red,violet</td></tr><tr><td>20240717010978</td><td>1</td><td>Small</td><td>green</td></tr><tr><td>20240717010977</td><td>8</td><td>Big</td><td>red</td></tr><tr><td>20240717010976</td><td>6</td><td>Big</td><td>red</td></tr><tr><td>20240717010975</td><td>7</td><td>Big</td><td>green</td></tr><tr><td>20240717010974</td><td>4</td><td>Small</td><td>red</td></tr><tr><td>20240717010973</td><td>5</td><td>Big</td><td>green,violet</td></tr><tr><td>20240717010972</td><td>8</td><td>Big</td><td>red</td></tr><tr><td>20240717010971</td><td>5</td><td>Big</td><td>green,violet</td></tr><tr><td>20240717010970</td><td>6</td><td>Big</td><td>red</td></tr></tbody>
+            </table>
+            <div id="error-message" class="error-message"></div>
+        </div>
+    </div>
+            <div class="content">
+                <table class="trends-table" id="big-mumbai-trends-table"> <!-- Added table for Big Mumbai -->
+                <thead>
+                    <tr>
+                        <th>Period</th>
+                        <th>Number</th>
+                        <th>Big/Small</th>
+                        <th>Colour</th>
+                    </tr>
+                </thead>
+                <tbody><tr><td>20240717010979</td><td>5</td><td>Big</td><td>green,violet</td></tr><tr><td>20240717010978</td><td>6</td><td>Big</td><td>red</td></tr><tr><td>20240717010977</td><td>8</td><td>Big</td><td>red</td></tr><tr><td>20240717010976</td><td>8</td><td>Big</td><td>red</td></tr><tr><td>20240717010975</td><td>1</td><td>Small</td><td>green</td></tr><tr><td>20240717010974</td><td>3</td><td>Small</td><td>green</td></tr><tr><td>20240717010973</td><td>4</td><td>Small</td><td>red</td></tr><tr><td>20240717010972</td><td>7</td><td>Big</td><td>green</td></tr><tr><td>20240717010971</td><td>7</td><td>Big</td><td>green</td></tr><tr><td>20240717010970</td><td>4</td><td>Small</td><td>red</td></tr></tbody>
+            </table>
+            <div id="error-message" class="error-message"></div>
+        </div>
+
+    
+        <div class="content">
+            <table class="trends-table" id="club-trends-table">
+                <thead>
+                    <tr>
+                        <th>Period</th>
+                        <th>Number</th>
+                        <th>Big/Small</th>
+                        <th>Colour</th>
+                    </tr>
+                </thead>
+                <tbody><tr><td>20240717010979</td><td>6</td><td>Big</td><td>red</td></tr><tr><td>20240717010978</td><td>0</td><td>Small</td><td>red,violet</td></tr><tr><td>20240717010977</td><td>9</td><td>Big</td><td>green</td></tr><tr><td>20240717010976</td><td>8</td><td>Big</td><td>red</td></tr><tr><td>20240717010975</td><td>0</td><td>Small</td><td>red,violet</td></tr><tr><td>20240717010974</td><td>4</td><td>Small</td><td>red</td></tr><tr><td>20240717010973</td><td>2</td><td>Small</td><td>red</td></tr><tr><td>20240717010972</td><td>2</td><td>Small</td><td>red</td></tr><tr><td>20240717010971</td><td>3</td><td>Small</td><td>green</td></tr><tr><td>20240717010970</td><td>5</td><td>Big</td><td>green,violet</td></tr></tbody>
+            </table>
+            <table class="trends-table" id="lottery-trends-table">
+                <thead>
+                    <tr>
+                        <th>Period</th>
+                        <th>Number</th>
+                        <th>Big/Small</th>
+                        <th>Colour</th>
+                    </tr>
+                </thead>
+                <tbody><tr><td>20240717010979</td><td>6</td><td>Big</td><td>red</td></tr><tr><td>20240717010978</td><td>0</td><td>Small</td><td>red,violet</td></tr><tr><td>20240717010977</td><td>9</td><td>Big</td><td>green</td></tr><tr><td>20240717010976</td><td>8</td><td>Big</td><td>red</td></tr><tr><td>20240717010975</td><td>0</td><td>Small</td><td>red,violet</td></tr><tr><td>20240717010974</td><td>4</td><td>Small</td><td>red</td></tr><tr><td>20240717010973</td><td>2</td><td>Small</td><td>red</td></tr><tr><td>20240717010972</td><td>2</td><td>Small</td><td>red</td></tr><tr><td>20240717010971</td><td>3</td><td>Small</td><td>green</td></tr><tr><td>20240717010970</td><td>5</td><td>Big</td><td>green,violet</td></tr></tbody>
+            </table>
+            <table class="trends-table" id="tiranga-trends-table">
+                <thead>
+                    <tr>
+                        <th>Period</th>
+                        <th>Number</th>
+                        <th>Big/Small</th>
+                        <th>Colour</th>
+                    </tr>
+                </thead>
+                <tbody><tr><td>20240717010979</td><td>8</td><td>Big</td><td>red</td></tr><tr><td>20240717010978</td><td>9</td><td>Big</td><td>green</td></tr><tr><td>20240717010977</td><td>5</td><td>Big</td><td>green,violet</td></tr><tr><td>20240717010976</td><td>0</td><td>Small</td><td>red,violet</td></tr><tr><td>20240717010975</td><td>6</td><td>Big</td><td>red</td></tr><tr><td>20240717010974</td><td>3</td><td>Small</td><td>green</td></tr><tr><td>20240717010973</td><td>8</td><td>Big</td><td>red</td></tr><tr><td>20240717010972</td><td>1</td><td>Small</td><td>green</td></tr><tr><td>20240717010971</td><td>9</td><td>Big</td><td>green</td></tr><tr><td>20240717010970</td><td>2</td><td>Small</td><td>red</td></tr></tbody>
+            </table>
+            <table class="trends-table" id="big-daddy-trends-table">
+                <thead>
+                    <tr>
+                        <th>Period</th>
+                        <th>Number</th>
+                        <th>Big/Small</th>
+                        <th>Colour</th>
+                    </tr>
+                </thead>
+                <tbody><tr><td>20240717010979</td><td>1</td><td>Small</td><td>green</td></tr><tr><td>20240717010978</td><td>1</td><td>Small</td><td>green</td></tr><tr><td>20240717010977</td><td>6</td><td>Big</td><td>red</td></tr><tr><td>20240717010976</td><td>5</td><td>Big</td><td>green,violet</td></tr><tr><td>20240717010975</td><td>2</td><td>Small</td><td>red</td></tr><tr><td>20240717010974</td><td>9</td><td>Big</td><td>green</td></tr><tr><td>20240717010973</td><td>4</td><td>Small</td><td>red</td></tr><tr><td>20240717010972</td><td>7</td><td>Big</td><td>green</td></tr><tr><td>20240717010971</td><td>9</td><td>Big</td><td>green</td></tr><tr><td>20240717010970</td><td>9</td><td>Big</td><td>green</td></tr></tbody>
+            </table>
+            <table class="trends-table" id="tc-lottery-trends-table">
+                <thead>
+                    <tr>
+                        <th>Period</th>
+                        <th>Number</th>
+                        <th>Big/Small</th>
+                        <th>Colour</th>
+                    </tr>
+                </thead>
+                <tbody><tr><td>20240717010979</td><td>9</td><td>Big</td><td>green</td></tr><tr><td>20240717010978</td><td>8</td><td>Big</td><td>red</td></tr><tr><td>20240717010977</td><td>3</td><td>Small</td><td>green</td></tr><tr><td>20240717010976</td><td>7</td><td>Big</td><td>green</td></tr><tr><td>20240717010975</td><td>5</td><td>Big</td><td>green,violet</td></tr><tr><td>20240717010974</td><td>3</td><td>Small</td><td>green</td></tr><tr><td>20240717010973</td><td>1</td><td>Small</td><td>green</td></tr><tr><td>20240717010972</td><td>4</td><td>Small</td><td>red</td></tr><tr><td>20240717010971</td><td>7</td><td>Big</td><td>green</td></tr><tr><td>20240717010970</td><td>8</td><td>Big</td><td>red</td></tr></tbody>
+            </table>
+            <div id="error-message" class="error-message"></div>
+        </div>
+    
+
+    <script>
+        const countdownElement = document.getElementById('time-left');
+        const clubTrendsTableBody = document.getElementById('club-trends-table').getElementsByTagName('tbody')[0];
+        const lotteryTrendsTableBody = document.getElementById('lottery-trends-table').getElementsByTagName('tbody')[0];
+        const tirangaTrendsTableBody = document.getElementById('tiranga-trends-table').getElementsByTagName('tbody')[0];
+        const bigDaddyTrendsTableBody = document.getElementById('big-daddy-trends-table').getElementsByTagName('tbody')[0];
+        const tcLotteryTrendsTableBody = document.getElementById('tc-lottery-trends-table').getElementsByTagName('tbody')[0];
+        const clubTrendsBtn = document.getElementById('club-trends-btn');
+        const lotteryTrendsBtn = document.getElementById('lottery-trends-btn');
+        const tirangaTrendsBtn = document.getElementById('tiranga-trends-btn');
+        const bigDaddyTrendsBtn = document.getElementById('big-daddy-trends-btn');
+        const tcLotteryTrendsBtn = document.getElementById('tc-lottery-trends-btn');
+        const errorMessageElement = document.getElementById('error-message');
+ const sevenLotteryTrendsTableBody = document.getElementById('seven-lottery-trends-table').getElementsByTagName('tbody')[0]; // Added reference to 7 Lottery table body
+        const sevenLotteryTrendsBtn = document.getElementById('seven-lottery-trends-btn'); // Added reference to 7 Lottery button
+        const bigMumbaiTrendsTableBody = document.getElementById('big-mumbai-trends-table').getElementsByTagName('tbody')[0]; // Added reference to Big Mumbai table body
+        const bigMumbaiTrendsBtn = document.getElementById('big-mumbai-trends-btn'); // Added reference to Big Mumbai button
+
+        function updateCountdown() {
+            const currentTime = new Date();
+            const currentSeconds = currentTime.getSeconds();
+            const remainingSeconds = 60 - currentSeconds;
+            countdownElement.textContent = `0:${remainingSeconds.toString().padStart(2, '0')}`;
+
+            if (remainingSeconds === 0) {
+                fetchClubTrendsData();
+                fetchLotteryTrendsData();
+                fetchTirangaTrendsData();
+                fetchBigDaddyTrendsData();
+                fetchTcLotteryTrendsData();
+            }
+        }
+
+        async function fetchBigMumbaiTrendsData() {
+            const maxAttempts = 5;
+            const backoffTime = 1000; // In milliseconds
+            let attempt = 0;
+
+            while (attempt < maxAttempts) {
+                try {
+                    const currentGMT = new Date();
+                    const timestamp = Math.floor(currentGMT.getTime() / 1000);
+
+                    const headers = {
+                        'User-Agent': 'Mozilla/5.0',
+                        'Accept': 'application/json, text/plain, */*',
+                        'Content-Type': 'application/json;charset=UTF-8',
+                        'Authorization': 'Bearer YOUR_ACTUAL_TOKEN_HERE',
+                        'Origin': 'https://bigmumbai9.com',
+                        'Referer': 'https://bigmumbai9.com/',
+                    };
+
+                    const jsonData = {
+                        pageSize: 10,
+                        pageNo: 1,
+                        typeId: 1,
+                        language: 0,
+                        random: '2729cb6a901b434b91f8a1bea91a1435',
+                        signature: '2E350B5015F00920745FD651C58934BD',
+                        timestamp: timestamp,
+                    };
+
+                    const response = await fetch('https://bigmumbaiapi.com/api/webapi/GetNoaverageEmerdList', {
+                        method: 'POST',
+                        headers: headers,
+                        body: JSON.stringify(jsonData),
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        const trends = data.data.list;
+                        displayTrendsData(trends, bigMumbaiTrendsTableBody);
+                        saveTrendsData(trends, 'big_mumbai.txt');
+                        errorMessageElement.textContent = '';
+                        break;
+                    } else {
+                        const errorMessage = `Attempt ${attempt + 1} failed with status code ${response.status}. Retrying...`;
+                        console.log(errorMessage);
+                        errorMessageElement.textContent = errorMessage;
+                        attempt++;
+                        await new Promise(resolve => setTimeout(resolve, backoffTime * attempt));
+                    }
+                } catch (error) {
+                    const errorMessage = `Attempt ${attempt + 1} failed with error: ${error}. Retrying...`;
+                    console.log(errorMessage);
+                    errorMessageElement.textContent = errorMessage;
+                    attempt++;
+                    await new Promise(resolve => setTimeout(resolve, backoffTime * attempt));
+                }
+            }
+
+            if (attempt === maxAttempts) {
+                const errorMessage = "Failed to fetch Big Mumbai trends data after maximum attempts.";
+                console.log(errorMessage);
+                errorMessageElement.textContent = errorMessage;
+            }
+        }
+
+        async function fetchClubTrendsData() {
+            const maxAttempts = 5;
+            const backoffTime = 1000; // In milliseconds
+            let attempt = 0;
+
+            while (attempt < maxAttempts) {
+                try {
+                    const currentGMT = new Date();
+                    const timestamp = Math.floor(currentGMT.getTime() / 1000);
+
+                    const headers = {
+                        'User-Agent': 'Mozilla/5.0 (X11; Windows x86_64; rv:120.0) Gecko/20100101 Firefox/120.0',
+                        'Accept': 'application/json, text/plain, */*',
+                        'Accept-Language': 'en-US,en;q=0.5',
+                        'Content-Type': 'application/json;charset=UTF-8',
+                        'Authorization': 'Bearer <YOUR_TOKEN_HERE>',
+                        'Origin': 'https://91clubin.in',
+                        'Connection': 'keep-alive',
+                        'Referer': 'https://91clubin.in/',
+                        'Sec-Fetch-Dest': 'empty',
+                        'Sec-Fetch-Mode': 'cors',
+                        'Sec-Fetch-Site': 'cross-site',
+                    };
+
+                    const jsonData = {
+                        'pageSize': 10,
+                        'pageNo': 1,
+                        'typeId': 1,
+                        'language': 0,
+                        'random': 'f61ad7651a734f8c9de8f5b051bdb0f9',
+                        'signature': '30423F9542005A1170A3C8D2ECA46E8E',
+                        'timestamp': timestamp,
+                    };
+
+                    const response = await fetch('https://91clubapi.com/api/webapi/GetNoaverageEmerdList', {
+                        method: 'POST',
+                        headers: headers,
+                        body: JSON.stringify(jsonData),
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        const trends = data.data.list;
+                        displayTrendsData(trends, clubTrendsTableBody);
+                        saveTrendsData(trends, '91_club.txt'); // Save the trends data to 91_club.txt
+                        errorMessageElement.textContent = ''; // Clear any previous error message
+                        break; // Successfully fetched data, exit the loop
+                    } else {
+                        const errorMessage = `Attempt ${attempt + 1} failed with status code ${response.status}. Retrying...`;
+                        console.log(errorMessage);
+                        errorMessageElement.textContent = errorMessage;
+                        attempt++;
+                        await new Promise(resolve => setTimeout(resolve, backoffTime * attempt));
+                    }
+                } catch (error) {
+                    const errorMessage = `Attempt ${attempt + 1} failed with error: ${error}. Retrying...`;
+                    console.log(errorMessage);
+                    errorMessageElement.textContent = errorMessage;
+                    attempt++;
+                    await new Promise(resolve => setTimeout(resolve, backoffTime * attempt));
+                }
+            }
+
+            if (attempt === maxAttempts) {
+                const errorMessage = "Failed to fetch 91 Club trends data after maximum attempts.";
+                console.log(errorMessage);
+                errorMessageElement.textContent = errorMessage;
+            }
+        }
+    async function fetchSevenLotteryTrendsData() {
+            const maxAttempts = 5;
+            const backoffTime = 1000; // In milliseconds
+            let attempt = 0;
+
+            while (attempt < maxAttempts) {
+                try {
+                    const currentGMT = new Date();
+                    const timestamp = Math.floor(currentGMT.getTime() / 1000);
+
+                    const headers = {
+                        'User-Agent': 'Mozilla/5.0',
+                        'Accept': 'application/json, text/plain, */*',
+                        'Content-Type': 'application/json;charset=UTF-8',
+                        'Authorization': 'Bearer YOUR_ACTUAL_TOKEN_HERE',
+                        'Origin': 'https://lottery7in.com',
+                        'Referer': 'https://lottery7in.com/',
+                    };
+
+                    const jsonData = {
+                        pageSize: 10,
+                        pageNo: 1,
+                        typeId: 1,
+                        language: 0,
+                        random: '60195f00185f450480b91346d8db151b',
+                        signature: 'E368BEB8B38FE5D044E2B3A5DC4491C9',
+                        timestamp: timestamp,
+                    };
+
+                    const response = await fetch('https://lottery7api.com/api/webapi/GetNoaverageEmerdList', {
+                        method: 'POST',
+                        headers: headers,
+                        body: JSON.stringify(jsonData),
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        const trends = data.data.list;
+                        displayTrendsData(trends, sevenLotteryTrendsTableBody);
+                        saveTrendsData(trends, '7_lottery.txt');
+                        errorMessageElement.textContent = '';
+                        break;
+                    } else {
+                        const errorMessage = `Attempt ${attempt + 1} failed with status code ${response.status}. Retrying...`;
+                        console.log(errorMessage);
+                        errorMessageElement.textContent = errorMessage;
+                        attempt++;
+                        await new Promise(resolve => setTimeout(resolve, backoffTime * attempt));
+                    }
+                } catch (error) {
+                    const errorMessage = `Attempt ${attempt + 1} failed with error: ${error}. Retrying...`;
+                    console.log(errorMessage);
+                    errorMessageElement.textContent = errorMessage;
+                    attempt++;
+                    await new Promise(resolve => setTimeout(resolve, backoffTime * attempt));
+                }
+            }
+
+            if (attempt === maxAttempts) {
+                const errorMessage = "Failed to fetch 7 Lottery trends data after maximum attempts.";
+                console.log(errorMessage);
+                errorMessageElement.textContent = errorMessage;
+            }
+        }
+        async function fetchLotteryTrendsData() {
+            const maxAttempts = 5;
+            const backoffTime = 1000; // In milliseconds
+            let attempt = 0;
+
+            while (attempt < maxAttempts) {
+                try {
+                    const currentGMT = new Date();
+                    const timestamp = Math.floor(currentGMT.getTime() / 1000);
+
+                    const headers = {
+                        'User-Agent': 'Mozilla/5.0',
+                        'Accept': 'application/json, text/plain, */*',
+                        'Content-Type': 'application/json;charset=UTF-8',
+                        'Authorization': 'Bearer YOUR_ACTUAL_TOKEN_HERE',
+                        'Origin': 'https://82bet.com',
+                        'Referer': 'https://82bet.com/',
+                    };
+
+                    const jsonData = {
+                        pageSize: 10,
+                        pageNo: 1,
+                        typeId: 1,
+                        language: 0,
+                        random: '180d3fdbf9414363977eef178e482d4a',
+                        signature: 'A6F873FE5D4C8CC189CA85505EE2FA30',
+                        timestamp: timestamp,
+                    };
+
+                    const response = await fetch('https://82lotteryapi.com/api/webapi/GetNoaverageEmerdList', {
+                        method: 'POST',
+                        headers: headers,
+                        body: JSON.stringify(jsonData),
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        const trends = data.data.list;
+                        displayTrendsData(trends, lotteryTrendsTableBody);
+                        saveTrendsData(trends, '82_lottery.txt'); // Save the trends data to 82_lottery.txt
+                        errorMessageElement.textContent = ''; // Clear any previous error message
+                        break; // Successfully fetched data, exit the loop
+                    } else {
+                        const errorMessage = `Attempt ${attempt + 1} failed with status code ${response.status}. Retrying...`;
+                        console.log(errorMessage);
+                        errorMessageElement.textContent = errorMessage;
+                        attempt++;
+                        await new Promise(resolve => setTimeout(resolve, backoffTime * attempt));
+                    }
+                } catch (error) {
+                    const errorMessage = `Attempt ${attempt + 1} failed with error: ${error}. Retrying...`;
+                    console.log(errorMessage);
+                    errorMessageElement.textContent = errorMessage;
+                    attempt++;
+                    await new Promise(resolve => setTimeout(resolve, backoffTime * attempt));
+                }
+            }
+
+            if (attempt === maxAttempts) {
+                const errorMessage = "Failed to fetch 82 Lottery trends data after maximum attempts.";
+                console.log(errorMessage);
+                errorMessageElement.textContent = errorMessage;
+            }
+        }
+
+        async function fetchTirangaTrendsData() {
+            const maxAttempts = 5;
+            const backoffTime = 1000; // In milliseconds
+            let attempt = 0;
+
+            while (attempt < maxAttempts) {
+                try {
+                    const headers = {
+                        'User-Agent': 'Mozilla/5.0',
+                        'Accept': 'application/json, text/plain, */*',
+                        'Content-Type': 'application/json;charset=UTF-8',
+                        'Authorization': 'Bearer abcdefghijklmnopqrstuvwxyz',
+                    };
+
+                    const jsonData = {
+                        pageSize: 10,
+                        pageNo: 1,
+                        typeId: 1,
+                        language: 0,
+                        random: '8ea066775b6e4ceab529b4758872dc1c',
+                        signature: '771788845F38346E706C4A63E11A2023',
+                        timestamp: 1712123181,
+                    };
+
+                    const response = await fetch('https://tirangaapi.com/api/webapi/GetNoaverageEmerdList', {
+                        method: 'POST',
+                        headers: headers,
+                        body: JSON.stringify(jsonData),
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        const trends = data.data.list;
+                        displayTrendsData(trends, tirangaTrendsTableBody);
+                        saveTrendsData(trends, 'tiranga.txt');
+                        errorMessageElement.textContent = '';
+                        break;
+                    } else {
+                        const errorMessage = `Attempt ${attempt + 1} failed with status code ${response.status}. Retrying...`;
+                        console.log(errorMessage);
+                        errorMessageElement.textContent = errorMessage;
+                        attempt++;
+                        await new Promise(resolve => setTimeout(resolve, backoffTime * attempt));
+                    }
+                } catch (error) {
+                    const errorMessage = `Attempt ${attempt + 1} failed with error: ${error}. Retrying...`;
+                    console.log(errorMessage);
+                    errorMessageElement.textContent = errorMessage;
+                    attempt++;
+                    await new Promise(resolve => setTimeout(resolve, backoffTime * attempt));
+                }
+            }
+
+            if (attempt === maxAttempts) {
+                const errorMessage = "Failed to fetch Tiranga trends data after maximum attempts.";
+                console.log(errorMessage);
+                errorMessageElement.textContent = errorMessage;
+            }
+        }
+
+        async function fetchBigDaddyTrendsData() {
+            const maxAttempts = 5;
+            const backoffTime = 1000; // In milliseconds
+            let attempt = 0;
+
+            while (attempt < maxAttempts) {
+                try {
+                    const currentGMT = new Date();
+                    const timestamp = Math.floor(currentGMT.getTime() / 1000);
+                    const headers = {
+                       'User-Agent': 'Mozilla/5.0',
+                       'Accept': 'application/json, text/plain, */*',
+                       'Content-Type': 'application/json;charset=UTF-8',
+                       'Authorization': 'Bearer YOUR_ACTUAL_TOKEN_HERE',
+                       'Origin': 'https://bigdaddygame.in',
+                       'Referer': 'https://bigdaddygame.in/',
+                   };
+
+                   const jsonData = {
+                       pageSize: 10,
+                       pageNo: 1,
+                       typeId: 1,
+                       language: 0,
+                       random: '24769d6e9deb46588093ec8453b22e19',
+                       signature: 'AF5ED9351D6700E68941590EE04AD960',
+                       timestamp: timestamp,
+                   };
+
+                   const response = await fetch('https://api.bigdaddygame.cc/api/webapi/GetNoaverageEmerdList', {
+                       method: 'POST',
+                       headers: headers,
+                       body: JSON.stringify(jsonData),
+                   });
+
+                   if (response.ok) {
+                       const data = await response.json();
+                       const trends = data.data.list;
+                       displayTrendsData(trends, bigDaddyTrendsTableBody);
+                       saveTrendsData(trends, 'big_daddy.txt');
+                       errorMessageElement.textContent = '';
+                       break;
+                   } else {
+                       const errorMessage = `Attempt ${attempt + 1} failed with status code ${response.status}. Retrying...`;
+                       console.log(errorMessage);
+                       errorMessageElement.textContent = errorMessage;
+                       attempt++;
+                       await new Promise(resolve => setTimeout(resolve, backoffTime * attempt));
+                   }
+               } catch (error) {
+                   const errorMessage = `Attempt ${attempt + 1} failed with error: ${error}. Retrying...`;
+                   console.log(errorMessage);
+                   errorMessageElement.textContent = errorMessage;
+                   attempt++;
+                   await new Promise(resolve => setTimeout(resolve, backoffTime * attempt));
+               }
+           }
+
+           if (attempt === maxAttempts) {
+               const errorMessage = "Failed to fetch Big Daddy trends data after maximum attempts.";
+               console.log(errorMessage);
+               errorMessageElement.textContent = errorMessage;
+           }
+       }
+       
+       async function fetchTcLotteryTrendsData() {
+           const maxAttempts = 5;
+           const backoffTime = 1000; // In milliseconds
+           let attempt = 0;
+
+           while (attempt < maxAttempts) {
+               try {
+                   const currentGMT = new Date();
+                   const timestamp = Math.floor(currentGMT.getTime() / 1000);
+
+                   const headers = {
+                       'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36',
+                       'Accept': 'application/json, text/plain, */*',
+                       'Accept-Language': 'en-IN,en-GB;q=0.9,en-US;q=0.8,en;q=0.7',
+                       'Content-Type': 'application/json;charset=UTF-8',
+                       'Authorization': 'Bearer <YOUR_TOKEN_HERE>', // Removed the actual token for security reasons
+                       'Origin': 'https://www.9987up.co',
+                       'Connection': 'keep-alive',
+                       'Referer': 'https://www.9987up.co/',
+                       'Sec-Fetch-Dest': 'empty',
+                       'Sec-Fetch-Mode': 'cors',
+                       'Sec-Fetch-Site': 'cross-site',
+                   };
+
+                   const jsonData = {
+                       'pageSize': 10,
+                       'pageNo': 1,
+                       'typeId': 1,
+                       'language': 9,
+                       'random': '6b9167db905d47a498cc69977e2d8a94',
+                       'signature': 'BFFB9A61D395A0C0515BE198D4C9A47B',
+                       'timestamp': timestamp,
+                   };
+
+                   const response = await fetch('https://9987cw.co/api/webapi/GetNoaverageEmerdList', {
+                       method: 'POST',
+                       headers: headers,
+                       body: JSON.stringify(jsonData),
+                   });
+
+                   if (response.ok) {
+                       const data = await response.json();
+                       const trends = data.data.list;
+                       displayTrendsData(trends, tcLotteryTrendsTableBody);
+                       saveTrendsData(trends, 'tc_lottery.txt'); // Save the trends data to tc_lottery.txt
+                       errorMessageElement.textContent = ''; // Clear any previous error message
+                       break; // Successfully fetched data, exit the loop
+                   } else {
+                       const errorMessage = `Attempt ${attempt + 1} failed with status code ${response.status}. Retrying...`;
+                       console.log(errorMessage);
+                       errorMessageElement.textContent = errorMessage;
+                       attempt++;
+                       await new Promise(resolve => setTimeout(resolve, backoffTime * attempt));
+                   }
+               } catch (error) {
+                   const errorMessage = `Attempt ${attempt + 1} failed with error: ${error}. Retrying...`;
+                   console.log(errorMessage);
+                   errorMessageElement.textContent = errorMessage;
+                   attempt++;
+                   await new Promise(resolve => setTimeout(resolve, backoffTime * attempt));
+               }
+           }
+
+           if (attempt === maxAttempts) {
+               const errorMessage = "Failed to fetch TC Lottery trends data after maximum attempts.";
+               console.log(errorMessage);
+               errorMessageElement.textContent = errorMessage;
+           }
+       }
+
+       function displayTrendsData(trends, tableBody) {
+           tableBody.innerHTML = '';
+
+           trends.forEach(trend => {
+               const row = document.createElement('tr');
+               const periodCell = document.createElement('td');
+               const numberCell = document.createElement('td');
+               const bigSmallCell = document.createElement('td');
+               const colourCell = document.createElement('td');
+
+               periodCell.textContent = trend.issueNumber;
+               numberCell.textContent = trend.number;
+               bigSmallCell.textContent = trend.number > 4 ? 'Big' : 'Small';
+               colourCell.textContent = trend.colour;
+
+               row.appendChild(periodCell);
+               row.appendChild(numberCell);
+               row.appendChild(bigSmallCell);
+               row.appendChild(colourCell);
+
+               tableBody.appendChild(row);
+           });
+       }
+
+       async function saveTrendsData(trends, fileName) {
+           const jsonData = JSON.stringify(trends, null, 2);
+
+           try {
+               const response = await fetch(`/save_trends_data.php?file=${fileName}`, {
+                   method: 'POST',
+                   headers: {
+                       'Content-Type': 'application/json',
+                   },
+                   body: jsonData,
+               });
+
+               if (!response.ok) {
+                   throw new Error(`HTTP error! status: ${response.status}`);
+               }
+           } catch (error) {
+               console.error(`Error saving trends data to ${fileName}:`, error);
+           }
+       }
+
+       clubTrendsBtn.addEventListener('click', () => {
+           const trendsTable = document.getElementById('club-trends-table');
+           if (trendsTable.style.display === 'none') {
+               trendsTable.style.display = 'table';
+               clubTrendsBtn.textContent = 'Hide 91 Club Trends';
+               fetchClubTrendsData();
+           } else {
+               trendsTable.style.display = 'none';
+               clubTrendsBtn.textContent = '91 Club Trends';
+           }
+       });
+       
+               bigMumbaiTrendsBtn.addEventListener('click', () => {
+            const trendsTable = document.getElementById('big-mumbai-trends-table');
+            if (trendsTable.style.display === 'none') {
+                trendsTable.style.display = 'table';
+                bigMumbaiTrendsBtn.textContent = 'Hide Big Mumbai Trends';
+                fetchBigMumbaiTrendsData();
+            } else {
+                trendsTable.style.display = 'none';
+                bigMumbaiTrendsBtn.textContent = 'Big Mumbai Trends';
+            }
+        });
+        
+               sevenLotteryTrendsBtn.addEventListener('click', () => {
+            const trendsTable = document.getElementById('seven-lottery-trends-table');
+            if (trendsTable.style.display === 'none') {
+                trendsTable.style.display = 'table';
+                sevenLotteryTrendsBtn.textContent = 'Hide 7 Lottery Trends';
+                fetchSevenLotteryTrendsData();
+            } else {
+                trendsTable.style.display = 'none';
+                sevenLotteryTrendsBtn.textContent = '7 Lottery Trends';
+            }
+        });
+
+       lotteryTrendsBtn.addEventListener('click', () => {
+           const trendsTable = document.getElementById('lottery-trends-table');
+           if (trendsTable.style.display === 'none') {
+               trendsTable.style.display = 'table';
+               lotteryTrendsBtn.textContent = 'Hide 82 Lottery Trends';
+               fetchLotteryTrendsData();
+           } else {
+               trendsTable.style.display = 'none';
+               lotteryTrendsBtn.textContent = '82 Lottery Trends';
+           }
+       });
+
+       tirangaTrendsBtn.addEventListener('click', () => {
+           const trendsTable = document.getElementById('tiranga-trends-table');
+           if (trendsTable.style.display === 'none') {
+               trendsTable.style.display = 'table';
+               tirangaTrendsBtn.textContent = 'Hide Tiranga Trends';
+               fetchTirangaTrendsData();
+           } else {
+               trendsTable.style.display = 'none';
+               tirangaTrendsBtn.textContent = 'Tiranga Trends';
+           }
+       });
+
+       bigDaddyTrendsBtn.addEventListener('click', () => {
+           const trendsTable = document.getElementById('big-daddy-trends-table');
+           if (trendsTable.style.display === 'none') {
+               trendsTable.style.display = 'table';
+               bigDaddyTrendsBtn.textContent = 'Hide Big Daddy Trends';
+               fetchBigDaddyTrendsData();
+           } else {
+               trendsTable.style.display = 'none';
+               bigDaddyTrendsBtn.textContent = 'Big Daddy Trends';
+           }
+       });
+       
+       tcLotteryTrendsBtn.addEventListener('click', () => {
+           const trendsTable = document.getElementById('tc-lottery-trends-table');
+           if (trendsTable.style.display === 'none') {
+               trendsTable.style.display = 'table';
+               tcLotteryTrendsBtn.textContent = 'Hide TC Lottery Trends';
+               fetchTcLotteryTrendsData();
+           } else {
+               trendsTable.style.display = 'none';
+               tcLotteryTrendsBtn.textContent = 'TC Lottery Trends';
+           }
+       });
+
+       // Update countdown every second
+       setInterval(updateCountdown, 1000);
+
+       // Initial countdown update
+       updateCountdown();
+
+       // Automatically fetch trends data every second
+       setInterval(() => {
+           fetchClubTrendsData();
+            fetchBigMumbaiTrendsData();
+           fetchLotteryTrendsData();
+           fetchTirangaTrendsData();
+           fetchBigDaddyTrendsData();
+           fetchTcLotteryTrendsData();
+           fetchSevenLotteryTrendsData(); 
+       }, 1000);
+   </script>
+
+</body></html>
